@@ -72,3 +72,20 @@ write.csv(t4a_PIVOTANTE, file ="t4a_PIVOTANTE.csv")
 
 
 #PARTE 2
+# Ordenar datos con la tabla4a (PIVOTAR)
+t4b_PIVOTANTE= tabla4b  %>% 
+  pivot_longer(cols=c(`1999`,`2000`), names_to = "anio", values_to = "poblacion")
+
+#combinar las versiones ordenadas de tabla4a y tabla4b (ocupando dplyr)
+union_t4 = left_join(t4a_PIVOTANTE, t4b_PIVOTANTE )
+
+#exportar resultado
+write.csv(union_t4, file ="union_t4.csv")
+
+#EJERCICIO 3 DATOS ANCHOS CON TABLA 2
+#1. Pivotar tabla 2 ¨a lo ancho¨
+
+#ordenar datos con la tabla 2 (PIVOTAR A LO ANCHO)
+tabla2_ancha=tabla2 %>% pivot_wider(names_from = tipo, values_from = cuenta)
+
+
