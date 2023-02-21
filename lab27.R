@@ -1,5 +1,5 @@
 # Hecho con gusto por Carla Carolina Pérez Hernández (UAEH)
-#EJecutado por María Guadalupe Montiel Hernández
+#Ejecutado por María Guadalupe Montiel Hernández
 
 # LABORATORIO - Tidy data -datos ordenados- PARTE 1,2 y 3.
 
@@ -90,3 +90,36 @@ tabla2_ancha=tabla2 %>% pivot_wider(names_from = tipo, values_from = cuenta)
 
 #exportar resultado
 write.csv(tabla2_ancha, file ="tabla2_ancha.csv")
+
+#PARTE 3
+
+#separación 1
+#separar casos y población por default
+SEPARADO_1 = tabla3 %>%  
+  separate(tasa, into = c("casos" , "poblacion"))
+           
+
+#separación 2
+#separar casos y población por carácter "/" "*" "-"
+SEPARADO_2 = tabla3 %>%  
+  separate(tasa, into = c("casos" , "poblacion"), sep = "/")
+
+#separación 3
+#separar siglo y año de la columna "anio"
+SEPARADO_3 = tabla3 %>%  
+  separate(anio, into = c("siglo" , "anio"), sep = 2)
+
+#Ahora vamos a unir la tabla generada anteriormente 
+
+#podemos unir usando unite() para unir las columnas siglo y anio creadas en el ejemplo anterior
+UNION_1 = SEPARADO_3 %>% 
+  unite(nueva, siglo, anio)
+
+#En este caso también necesitamos el argumento sep. por defecto 
+# pondrá un guión bajo (_) entre los valores de las distintas columnas
+# Si no queremos ningín separados usamos ("")
+UNION_2 = SEPARADO_3 %>% 
+  unite(nueva, siglo, anio, sep = "")
+
+#exportar resultado
+write.csv(UNION_2, file ="UNION_2.csv")
